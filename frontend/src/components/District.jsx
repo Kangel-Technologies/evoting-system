@@ -81,14 +81,21 @@ const District = () => {
         {/* Form for adding a new district */}
         <form onSubmit={handleAddDistrict} className="mb-6">
           <div className="flex items-center">
-            <input
-              type="text"
-              value={districtName}
-              onChange={(e) => setDistrictName(e.target.value)}
-              placeholder="Enter district name"
-              className="p-2 border rounded w-full md:w-2/3 mr-2"
-              required
-            />
+            {/* District Name */}
+            <div className="mb-4">
+              <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="districtName">
+                Name
+              </label>
+              <input
+                type="text"
+                value={districtName}
+                onChange={(e) => setDistrictName(e.target.value)}
+                placeholder="Enter district name"
+                className="p-2 border rounded w-full md:w-2/3 mr-2"
+                required
+              />
+            </div>
+
             <button
               type="submit"
               className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -100,7 +107,7 @@ const District = () => {
         </form>
       </div>
 
-      {/* District List Card */}
+      {/* District List */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-3/4 lg:w-2/3 xl:w-1/2"> {/* Card for District List */}
         <h2 className="text-xl font-bold mb-4">District List</h2>
         <h3 className="text-lg font-bold mb-3">Number of Districts: {districts.length}</h3>

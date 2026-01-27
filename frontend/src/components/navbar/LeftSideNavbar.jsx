@@ -32,7 +32,7 @@ const LeftSideNavbar = ({ userRole }) => {
   const adminLinks = [
     { to: "/parties", label: "Party", icon: <FlagIcon className="w-5 h-5" /> },
     { to: "/districts", label: "District", icon: <MapIcon className="w-5 h-5" /> },
-    { to: "/constituencies", label: "Constituency", icon: <OfficeBuildingIcon className="w-5 h-5" /> },
+    { to: "/constituencies", label: "Polling Division", icon: <OfficeBuildingIcon className="w-5 h-5" /> },
     { to: "/elections", label: "Election", icon: <UserGroupIcon className="w-5 h-5" /> },
     { to: "/candidates", label: "Candidate", icon: <ClipboardListIcon className="w-5 h-5" /> },
     { to: "/results", label: "Results", icon: <ChartBarIcon className="w-5 h-5" /> },

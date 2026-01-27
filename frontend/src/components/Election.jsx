@@ -136,54 +136,96 @@ const Election = () => {
       <h1 className="mb-4 text-2xl font-bold">Active Election: {activeElectionTitle || 'No Active Election'}</h1>
       <h1 className="mb-4 text-2xl font-bold">{isEditing ? 'Edit Election' : 'Add Election'}</h1>
       <form onSubmit={handleSubmit} className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          placeholder="Title"
-          className="w-full p-2 mb-2 border"
-          required
-        />
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          placeholder="Description"
-          className="w-full p-2 mb-2 border"
-        />
-        <input
-          type="date"
-          name="start_date"
-          value={formData.start_date}
-          onChange={handleInputChange}
-          className="w-full p-2 mb-2 border"
-          required
-        />
-        <input
-          type="time"
-          name="start_time"
-          value={formData.start_time}
-          onChange={handleInputChange}
-          className="w-full p-2 mb-2 border"
-          required
-        />
-        <input
-          type="date"
-          name="end_date"
-          value={formData.end_date}
-          onChange={handleInputChange}
-          className="w-full p-2 mb-2 border"
-          required
-        />
-        <input
-          type="time"
-          name="end_time"
-          value={formData.end_time}
-          onChange={handleInputChange}
-          className="w-full p-2 mb-2 border"
-          required
-        />
+        {/* Election Name */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="title">
+            Election Name
+          </label>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            placeholder="Title"
+            className="w-full p-2 mb-2 border"
+            required
+          />
+        </div>
+
+        {/* Election Description */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="description">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            placeholder="Description"
+            className="w-full p-2 mb-2 border"
+          />
+        </div>
+
+        {/* Start Date */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="start_date">
+            Stat Date
+          </label>
+          <input
+            type="date"
+            name="start_date"
+            value={formData.start_date}
+            onChange={handleInputChange}
+            className="w-full p-2 mb-2 border"
+            required
+          />
+        </div>
+
+        {/* Start Time */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="start_time">
+            Start Time
+          </label>
+          <input
+            type="time"
+            name="start_time"
+            value={formData.start_time}
+            onChange={handleInputChange}
+            className="w-full p-2 mb-2 border"
+            required
+          />
+        </div>
+
+        {/* End Date */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="end_date">
+            End Date
+          </label>
+          <input
+            type="date"
+            name="end_date"
+            value={formData.end_date}
+            onChange={handleInputChange}
+            className="w-full p-2 mb-2 border"
+            required
+          />
+        </div>
+
+        {/* End Time */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="end_time">
+            End Time
+          </label>
+          <input
+            type="time"
+            name="end_time"
+            value={formData.end_time}
+            onChange={handleInputChange}
+            className="w-full p-2 mb-2 border"
+            required
+          />
+        </div>
+
         <button type="submit" className="p-2 mt-2 text-white bg-blue-500 rounded" disabled={isLoading}>
           {isLoading ? 'Processing...' : isEditing ? 'Update Election' : 'Add Election'}
         </button>
@@ -194,6 +236,7 @@ const Election = () => {
         )}
       </form>
 
+      {/* Elections List */}
       <h2 className="mb-4 text-xl font-bold">Election List</h2>
       <ul className="space-y-2">
         {elections.map((election) => (
@@ -205,6 +248,8 @@ const Election = () => {
             >
               Edit
             </button>
+
+            {/* Active Election */}
             <button
               onClick={() => handleSetActive(election.id, election.title)}
               className="absolute px-4 py-2 text-white bg-blue-500 rounded bottom-2 right-2"
@@ -212,6 +257,7 @@ const Election = () => {
             >
               {activeElectionId === election.id ? 'Active' : 'Set Active'}
             </button>
+            
             <h3 className="text-lg font-semibold">{election.title}</h3>
             <p>{election.description}</p>
             <p>Start: {election.start_date} {election.start_time}</p>
