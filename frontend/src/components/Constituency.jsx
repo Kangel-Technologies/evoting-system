@@ -91,46 +91,59 @@ const Constituency = () => {
     <div className="p-8 flex flex-col items-center space-y-8">
       {/* Add Constituency Card */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-4/5 lg:w-3/4 xl:w-3/4">
-        <h1 className="text-2xl font-bold mb-4">Add Constituency</h1>
+        <h1 className="text-2xl font-bold mb-4">Add Polling Division</h1>
         <form onSubmit={handleSubmit} className="mb-6">
           <div className="flex flex-col space-y-4">
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter constituency name"
-              className="p-2 border rounded w-full"
-              required
-            />
-            {/* Dropdown for districts */}
-            <select
-              value={districtId}
-              onChange={(e) => setDistrictId(e.target.value)}
-              className="p-2 border rounded w-full"
-              required
-            >
-              <option value="">Select District</option>
-              {districts.map((district) => (
-                <option key={district.id} value={district.id}>
-                  {district.name}
-                </option>
-              ))}
-            </select>
+            {/* Polling Division Name */}
+            <div className="mb-4">
+              <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="name">
+                Name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter polling division name"
+                className="p-2 border rounded w-full"
+                required
+              />
+            </div>
+
+            {/* Select District */}
+            <div className="mb-4">
+              <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="districtId">
+                District
+              </label>
+              <select
+                value={districtId}
+                onChange={(e) => setDistrictId(e.target.value)}
+                className="p-2 border rounded w-full"
+                required
+              >
+                <option value="">Select District</option>
+                {districts.map((district) => (
+                  <option key={district.id} value={district.id}>
+                    {district.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <button
               type="submit"
               className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
-              Add Constituency
+              Add Polling Division
             </button>
           </div>
           {message && <p className="mt-4 text-green-500">{message}</p>}
         </form>
       </div>
   
-      {/* Constituency List Card */}
+      {/* Polling Divisions List */}
       <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-4/5 lg:w-3/4 xl:w-3/4">
-        <h1 className="text-xl font-bold mb-4">Constituency List</h1>
-        <h3 className="text-lg font-bold mb-3">Number of Constituencies: {constituencies.length}</h3>
+        <h1 className="text-xl font-bold mb-4">Polling Divisions List</h1>
+        <h3 className="text-lg font-bold mb-3">Number of Polling Divisions: {constituencies.length}</h3>
         <ul className="border rounded p-4 bg-gray-50 h-96 overflow-y-auto">
           {constituencies.length > 0 ? (
             constituencies.map((constituency) => (
@@ -139,7 +152,7 @@ const Constituency = () => {
               </li>
             ))
           ) : (
-            <li className="text-gray-500">No constituencies available.</li>
+            <li className="text-gray-500">No polling division available.</li>
           )}
         </ul>
       </div>

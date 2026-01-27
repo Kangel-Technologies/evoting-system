@@ -154,56 +154,91 @@ const Candidate = () => {
     <div className="max-w-4xl mx-auto py-8 px-4">
       <h1 className="text-2xl font-bold mb-4">{isEditing ? 'Edit Candidate' : 'Add Candidate'}</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          placeholder="Name"
-          className="p-2 border mb-2 w-full"
-          required
-        />
-        <input
-          type="file"
-          name="candidate_picture"
-          onChange={handleFileChange}
-          className="p-2 border mb-2 w-full"
-        />
-        <select
-          name="party"
-          value={formData.party}
-          onChange={handleInputChange}
-          className="w-full p-2 mb-2 border"
-          required
-        >
-          <option value="">Select a Party</option>
-          {parties.map((party) => (
-            <option key={party.id} value={party.name}>
-              {party.name}
-            </option>
-          ))}
-        </select>
-        <textarea
-          name="biography"
-          value={formData.biography}
-          onChange={handleInputChange}
-          placeholder="Biography"
-          className="p-2 border mb-2 w-full"
-        />
-        <select
-          name="election_id"
-          value={formData.election_id}
-          onChange={handleInputChange}
-          className="p-2 border mb-2 w-full"
-          required
-        >
-          <option value="">Select an Election</option>
-          {elections.map((election) => (
-            <option key={election.id} value={election.id}>
-              {election.title}
-            </option>
-          ))}
-        </select>
+        {/* Candidate Name */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="name">
+            Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            placeholder="Name"
+            className="p-2 border mb-2 w-full"
+            required
+          />
+        </div>
+
+        {/* Candidate Picture */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="candidate_picture">
+            Candidate Picture
+          </label>
+          <input
+            type="file"
+            name="candidate_picture"
+            onChange={handleFileChange}
+            className="p-2 border mb-2 w-full"
+          />
+        </div>
+
+        {/* Candidate Party */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="party">
+            Party
+          </label>
+          <select
+            name="party"
+            value={formData.party}
+            onChange={handleInputChange}
+            className="w-full p-2 mb-2 border"
+            required
+          >
+            <option value="">Select a Party</option>
+            {parties.map((party) => (
+              <option key={party.id} value={party.name}>
+                {party.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Candidate Biography */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="biography">
+            Biography
+          </label>
+          <textarea
+            name="biography"
+            value={formData.biography}
+            onChange={handleInputChange}
+            placeholder="Biography"
+            className="p-2 border mb-2 w-full"
+          />
+        </div>
+
+        {/* Select Election */}
+        <div className="mb-4">
+          <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="election_id">
+            Election
+          </label>
+          <select
+            name="election_id"
+            value={formData.election_id}
+            onChange={handleInputChange}
+            className="p-2 border mb-2 w-full"
+            required
+          >
+            <option value="">Select an Election</option>
+            {elections.map((election) => (
+              <option key={election.id} value={election.id}>
+                {election.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <button
           type="submit"
           className="bg-blue-500 text-white p-2 rounded mt-2"
@@ -218,6 +253,7 @@ const Candidate = () => {
         )}
       </form>
 
+      {/* Candidates List */}
       <h2 className="text-xl font-bold mb-4">Candidate List</h2>
       <p>Total Registered Candidates: {candidates.length}</p>
       <ul className="space-y-2">
@@ -237,6 +273,7 @@ const Candidate = () => {
               <h4 className="text-m font-semibold">Party: {candidate.party}</h4>
               <p className="line-clamp-3">{candidate.biography}</p>
             </div>
+            
             {/* Edit and Delete buttons */}
             <div className="flex space-x-2 absolute top-2 right-2">
               <button

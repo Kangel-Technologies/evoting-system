@@ -95,6 +95,10 @@ const Results = () => {
       <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-lg">
         <h1 className="mb-4 text-2xl font-bold">Election Results</h1>
         <div className="mb-4">
+          {/* Select District */}
+          <label className="block mb-1 text-sm text-left text-gray-700">
+            District
+          </label>
           <select
             className="w-full p-2 mb-2 border"
             value={selectedDistrict || ""}
@@ -110,6 +114,10 @@ const Results = () => {
         </div>
 
         <div className="mb-4">
+          {/* Select Polling Division */}
+          <label className="block mb-1 text-sm text-left text-gray-700">
+            Polling Division 
+          </label>
           <select
             className="w-full p-2 mb-2 border"
             value={selectedConstituency || ""}

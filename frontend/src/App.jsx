@@ -7,7 +7,7 @@ import Login from "./components/auth/Login";
 import Logout from "./components/auth/Logout";
 import Dashboard from "./components/Dashboard";
 import TopNavbar from "./components/navbar/TopNavbar";
-import LeftSideNavbar from "./components/navbar/LeftSideNavbar";  // Import LeftSideNavbar
+import LeftSideNavbar from "./components/navbar/LeftSideNavbar";
 import Parties from "./components/Party";
 import District from './components/District';
 import Constituency from "./components/Constituency";
@@ -18,7 +18,7 @@ import Vote from './components/Vote';
 import AuditLogs from './components/AuditLog';
 import Results from './components/Results';
 import Settings from './components/Settings';
-import PrivateRoute from './components/PrivateRoute'; // Import the PrivateRoute component
+import PrivateRoute from './components/PrivateRoute';
 
 const AppLayout = ({ children, userRole }) => {  // Add userRole as a prop
   const location = useLocation();

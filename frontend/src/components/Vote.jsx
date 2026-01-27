@@ -107,7 +107,7 @@ const Vote = () => {
       <h2><span className="font-bold">Your Name:</span> {user.name || 'Name not available'}</h2>
       <p><span className="font-bold">District:</span> {user.district || 'District not available'} | <span className="font-bold">Constituency:</span> {user.constituency || 'Constituency not available'}</p>
 
-      <h3 className="mt-4 mb-3 text-2xl font-bold">List of Presidential Candidates: Vote Now</h3>
+      <h3 className="mt-4 mb-3 text-2xl font-bold">List of Candidates: Vote Now</h3>
       {candidates.map(candidate => {
         const party = getPartyDetails(candidate.party);
 

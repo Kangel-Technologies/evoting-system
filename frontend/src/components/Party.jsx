@@ -124,27 +124,41 @@ const Party = () => {
   
         {/* Form for adding or updating a party */}
         <form onSubmit={handleAddOrUpdateParty} className="mb-6">
-          <div className="flex flex-col items-center">
-            <input
-              type="text"
-              value={partyName}
-              onChange={(e) => setPartyName(e.target.value)}
-              placeholder="Enter party name"
-              className="w-full p-2 mb-2 border rounded"
-              required
-            />
-            <input
-              type="file"
-              onChange={handleLogoChange}
-              className="w-full p-2 mb-2 border rounded"
-            />
-            {partyLogoPreview && (
-              <img
-                src={partyLogoPreview}
-                alt="Party Logo Preview"
-                className="mb-4 max-h-32"
+          <div className="flex flex-col">
+            <div className="mb-4">
+              {/* Party Name */}
+              <label className="block mb-1 text-sm text-left text-gray-700" htmlFor="partyName">
+                Party Name
+              </label>
+              <input
+                type="text"
+                value={partyName}
+                onChange={(e) => setPartyName(e.target.value)}
+                placeholder="Enter party name"
+                className="w-full p-2 mb-2 border rounded"
+                required
               />
-            )}
+            </div>
+
+            {/* Party Logo */}
+            <div className="mb-4">
+              <label className="block mb-1 text-sm text-left text-gray-700">
+                Party Logo
+              </label>
+              <input
+                type="file"
+                onChange={handleLogoChange}
+                className="w-full p-2 mb-2 border rounded"
+              />
+              {partyLogoPreview && (
+                <img
+                  src={partyLogoPreview}
+                  alt="Party Logo Preview"
+                  className="mb-4 max-h-32"
+                />
+              )}
+            </div>
+
             <button
               type="submit"
               className="w-full p-2 text-white bg-blue-500 rounded hover:bg-blue-600"
@@ -174,6 +188,7 @@ const Party = () => {
                   )}
                   <span>{party.name}</span>
                 </div>
+                
                 <button
                   onClick={() => handleEditParty(party.id)}
                   className="p-2 ml-2 text-white bg-yellow-500 rounded hover:bg-yellow-600"
