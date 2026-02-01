@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const Candidate = () => {
-  const [candidates, setCandidates] = useState([]);
+  // const [candidates, setCandidates] = useState([]);
   const [elections, setElections] = useState([]);
   const [parties, setParties] = useState([]);
   const [formData, setFormData] = useState({
@@ -14,24 +15,16 @@ const Candidate = () => {
     candidate_picture: null,
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   // Fetch logged-in user from localStorage
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
       setUser(storedUser);
-    }
-  }, []);
-
-  // Fetch all candidates
-  const fetchCandidates = useCallback(async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/candidates');
-      setCandidates(response.data);
-    } catch (error) {
-      console.error('Error fetching candidates:', error);
     }
   }, []);
 
@@ -54,10 +47,14 @@ const Candidate = () => {
   }, []);
 
   useEffect(() => {
-    fetchCandidates();
+    if (id) {
+      setIsEditing(true);
+      fetchCandidateById(id);
+    }
+
     fetchElections();
     fetchParties();
-  }, [fetchCandidates, fetchElections, fetchParties]);
+  }, [id, fetchElections, fetchParties]);
 
   const logAuditAction = async (action, description) => {
     try {
@@ -107,7 +104,6 @@ const Candidate = () => {
         await axios.post('http://localhost:8000/api/candidates', data);
         await logAuditAction('Add Candidate', `Added candidate: ${formData.name}`);
       }
-      fetchCandidates();
       resetForm();
     } catch (error) {
       console.error('Error submitting candidate:', error);
@@ -116,25 +112,23 @@ const Candidate = () => {
     }
   };
 
-  const handleEdit = (candidate) => {
-    setFormData({
-      id: candidate.id,
-      name: candidate.name,
-      party: candidate.party,
-      biography: candidate.biography,
-      election_id: candidate.election_id,
-      candidate_picture: null,
-    });
-    setIsEditing(true);
-  };
-
-  const handleDelete = async (id) => {
+  const fetchCandidateById = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/candidates/${id}`);
-      await logAuditAction('Delete Candidate', `Deleted candidate with ID: ${id}`);
-      fetchCandidates();
+      const response = await axios.get(`http://localhost:8000/api/candidates`);
+      const candidate = response.data.find(c => c.id === parseInt(id));
+
+      if (candidate) {
+        setFormData({
+          id: candidate.id,
+          name: candidate.name,
+          party: candidate.party,
+          biography: candidate.biography,
+          election_id: candidate.election_id,
+          candidate_picture: null,
+        });
+      }
     } catch (error) {
-      console.error('Error deleting candidate:', error);
+      console.error("Error loading candidate:", error);
     }
   };
 
@@ -252,46 +246,6 @@ const Candidate = () => {
           </button>
         )}
       </form>
-
-      {/* Candidates List */}
-      <h2 className="text-xl font-bold mb-4">Candidate List</h2>
-      <p>Total Registered Candidates: {candidates.length}</p>
-      <ul className="space-y-2">
-        {candidates.map((candidate) => (
-          <li key={candidate.id} className="border p-4 rounded bg-white shadow relative flex items-center">
-            {/* Image */}
-            {candidate.candidate_picture && (
-              <img
-                src={`http://localhost:8000/storage/${candidate.candidate_picture}`}
-                alt="Candidate"
-                className="w-24 h-24 object-cover mr-4"
-              />
-            )}
-            {/* Candidate details */}
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold">{candidate.name}</h3>
-              <h4 className="text-m font-semibold">Party: {candidate.party}</h4>
-              <p className="line-clamp-3">{candidate.biography}</p>
-            </div>
-            
-            {/* Edit and Delete buttons */}
-            <div className="flex space-x-2 absolute top-2 right-2">
-              <button
-                onClick={() => handleEdit(candidate)}
-                className="bg-yellow-500 text-white px-4 py-2 rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(candidate.id)}
-                className="bg-red-500 text-white px-4 py-2 rounded"
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

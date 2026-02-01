@@ -12,7 +12,11 @@ import Parties from "./components/Party";
 import District from './components/District';
 import Constituency from "./components/Constituency";
 import Election from './components/Election';
-import Candidate from './components/Candidate';
+
+import Candidate from './components/Candidate/Candidate';
+import CandidateList from './components/Candidate/CandidateList';
+import CandidatesLayout from "./components/Candidate/CandidatesLayout";
+
 import Profile from './components/auth/Profile';
 import Vote from './components/Vote';
 import AuditLogs from './components/AuditLog';
@@ -100,14 +104,20 @@ const App = () => {
               </PrivateRoute>
             }
           />
+
+          {/* Candidates Tab */}
           <Route
             path="/candidates"
             element={
               <PrivateRoute allowedRoles={['admin']} userRole={userRole}>
-                <Candidate />
+                <CandidatesLayout />
               </PrivateRoute>
             }
-          />
+          >
+            <Route index element={<CandidateList />} />
+            <Route path="add" element={<Candidate />} />
+            <Route path="edit/:id" element={<Candidate />} />
+          </Route>
           <Route
             path="/profile"
             element={
