@@ -5,16 +5,14 @@ const Constituency = () => {
   // State variables
   const [name, setName] = useState('');
   const [districtId, setDistrictId] = useState('');
-  const [constituencies, setConstituencies] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState({}); // User data for audit log
 
   // Fetch constituencies and districts when the component is mounted
   useEffect(() => {
-    fetchConstituencies();
     fetchDistricts();
-    fetchUser(); // Fetch the user data for logging
+    fetchUser();
   }, []);
 
   // Fetch user data from localStorage for audit log purposes
@@ -22,16 +20,6 @@ const Constituency = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (userData) {
       setUser(userData);
-    }
-  };
-
-  // Function to fetch constituencies
-  const fetchConstituencies = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:8000/api/constituencies');
-      setConstituencies(data);
-    } catch (error) {
-      console.error('Error fetching constituencies:', error);
     }
   };
 
@@ -66,13 +54,12 @@ const Constituency = () => {
         name,
         district_id: districtId,
       });
-      setMessage('Constituency added successfully!');
+      setMessage('Polling Division added successfully!');
       setName('');
       setDistrictId('');
-      fetchConstituencies(); // Refresh the list
 
       // Log the constituency addition to the audit log
-      await logAuditAction('Add Constituency', `Added constituency: ${name} to district ID: ${districtId}`);
+      await logAuditAction('Add Polling Division', `Added polling division: ${name} to district ID: ${districtId}`);
 
       // Clear the message after 5 seconds
       setTimeout(() => {
@@ -80,7 +67,6 @@ const Constituency = () => {
       }, 5000);
     } catch (error) {
       setMessage('Error adding constituency. Make sure the name is unique and district exists.');
-      // Clear the message after 5 seconds in case of an error too
       setTimeout(() => {
         setMessage('');
       }, 5000);
@@ -138,23 +124,6 @@ const Constituency = () => {
           </div>
           {message && <p className="mt-4 text-green-500">{message}</p>}
         </form>
-      </div>
-  
-      {/* Polling Divisions List */}
-      <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-4/5 lg:w-3/4 xl:w-3/4">
-        <h1 className="text-xl font-bold mb-4">Polling Divisions List</h1>
-        <h3 className="text-lg font-bold mb-3">Number of Polling Divisions: {constituencies.length}</h3>
-        <ul className="border rounded p-4 bg-gray-50 h-96 overflow-y-auto">
-          {constituencies.length > 0 ? (
-            constituencies.map((constituency) => (
-              <li key={constituency.id} className="border-b p-2">
-                {constituency.name} | {constituency.district.name}
-              </li>
-            ))
-          ) : (
-            <li className="text-gray-500">No polling division available.</li>
-          )}
-        </ul>
       </div>
     </div>
   );  

@@ -11,7 +11,7 @@ import {
   UserGroupIcon,
   ClipboardListIcon,
   CogIcon,
-} from "@heroicons/react/outline"; // Importing Heroicons
+} from "@heroicons/react/outline";
 
 const LeftSideNavbar = ({ userRole }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,9 +32,28 @@ const LeftSideNavbar = ({ userRole }) => {
   const adminLinks = [
     { to: "/parties", label: "Party", icon: <FlagIcon className="w-5 h-5" /> },
     { to: "/districts", label: "District", icon: <MapIcon className="w-5 h-5" /> },
-    { to: "/constituencies", label: "Polling Division", icon: <OfficeBuildingIcon className="w-5 h-5" /> },
-    { to: "/elections", label: "Election", icon: <UserGroupIcon className="w-5 h-5" /> },
-    { to: "/candidates", label: "Candidate", icon: <ClipboardListIcon className="w-5 h-5" /> },
+    
+    // Polling Division Tab
+    { 
+      to: "/constituencies", 
+      label: "Polling Division", 
+      icon: <OfficeBuildingIcon className="w-5 h-5" />,
+      children: [
+        { to: "/constituencies/list", label: "Polling Division List" },
+        { to: "/constituencies/add", label: "Add Polling Division" },
+      ],
+    },
+
+    // Candidate Tab
+    { 
+      to: "/candidates", 
+      label: "Candidate", 
+      icon: <ClipboardListIcon className="w-5 h-5" />,
+      children: [
+        { to: "/candidates/list", label: "Candidate List" },
+        { to: "/candidates/add", label: "Add Candidate" },
+      ],
+    },
     { to: "/results", label: "Results", icon: <ChartBarIcon className="w-5 h-5" /> },
   ];
 

@@ -10,7 +10,11 @@ import TopNavbar from "./components/navbar/TopNavbar";
 import LeftSideNavbar from "./components/navbar/LeftSideNavbar";
 import Parties from "./components/Party";
 import District from './components/District';
-import Constituency from "./components/Constituency";
+
+import Constituency from './components/Constituency/Constituency';
+import ConstituencyList from './components/Constituency/ConstituencyList';
+import ConstituencyLayout from './components/Constituency/ConstituencyLayout';
+
 import Election from './components/Election';
 
 import Candidate from './components/Candidate/Candidate';
@@ -88,14 +92,20 @@ const App = () => {
               </PrivateRoute>
             }
           />
+
+          {/* Polling Division Tab */}
           <Route
             path="/constituencies"
             element={
               <PrivateRoute allowedRoles={['admin']} userRole={userRole}>
-                <Constituency />
+                <ConstituencyLayout />
               </PrivateRoute>
             }
-          />
+          >
+            <Route index element={<ConstituencyList />} />
+            <Route path="add" element={<Constituency />} />
+            <Route path="edit/:id" element={<Constituency />} />
+          </Route>
           <Route
             path="/elections"
             element={
